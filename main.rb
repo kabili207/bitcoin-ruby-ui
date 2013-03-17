@@ -4,6 +4,7 @@
 #
 require 'gettext'
 require 'libglade2'
+require 'gtk2'
 require 'bitcoin'
 
 class MainGlade
@@ -12,11 +13,16 @@ class MainGlade
   PASSWORD = 'pass'
 
   attr :glade
+  attr :builder
   
   def initialize(path_or_data, root = nil, domain = nil, localedir = nil, flag = GladeXML::FILE)
     bindtextdomain(domain, localedir, nil, "UTF-8")
-    @glade = GladeXML.new(path_or_data, root, domain, localedir, flag) {|handler| method(handler)}
-    @transaction_tree = @glade["transactions_treeview"]
+    @builder = Gtk::Builder::new
+    @builder.add_from_file(path_or_data)
+    @builder.connect_signals{ |handler| method(handler) }
+    #@builder.translation_domain = domain
+    
+    @transaction_tree = @builder.get_object("transactions_treeview")
     
     renderer = Gtk::CellRendererText.new
     col = Gtk::TreeViewColumn.new("Time", renderer)
@@ -68,7 +74,7 @@ class MainGlade
   end
   
   def update_balance
-    l = glade['balance_label']
+    l = @builder.get_object('balance_label')
     l.text = @client.balance.to_s
   end
   
@@ -84,18 +90,9 @@ class MainGlade
       i.set_value(2, t['amount'])
       i.set_value(3, t['category'])
     end
-    tree = @glade["transactions_treeview"]
+    tree = @transaction_tree
     tree.model = store
   end
   
   
-end
-
-# Main program
-if __FILE__ == $0
-  # Set values as your own application. 
-  PROG_PATH = "main.glade"
-  PROG_NAME = "YOUR_APPLICATION_NAME"
-  MainGlade.new(PROG_PATH, nil, PROG_NAME)
-  Gtk.main
 end

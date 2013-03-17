@@ -1,3 +1,0 @@
-[submodule "contrib/bitcoin-client"]
-	path = contrib/bitcoin-client
-	url = https://github.com/sinisterchipmunk/bitcoin-client.git
