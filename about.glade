@@ -5,8 +5,16 @@
   <object class="GtkAboutDialog" id="aboutdialog1">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
+    <property name="title" translatable="yes">About Ruby Bitcoin</property>
+    <property name="icon">bitcoinLogo.svg</property>
     <property name="type_hint">dialog</property>
-    <property name="program_name">Glade</property>
+    <property name="program_name">Ruby Bitcoin</property>
+    <property name="version">0.0.1</property>
+    <property name="copyright" translatable="yes">Copyright © 2013 Andrew Nagle</property>
+    <property name="comments" translatable="yes">A user interface for the Bitcoin RPC API.</property>
+    <property name="website">http://www.zyrenth.com</property>
+    <property name="authors">Andrew Nagle</property>
+    <property name="logo">bitcoinLogo.svg</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>

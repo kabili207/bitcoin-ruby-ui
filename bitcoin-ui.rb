@@ -11,11 +11,10 @@ if __FILE__ == $0
   PROG_PATH = "main.glade"
   PROG_NAME = "Ruby Bitcoin"
   Gtk.init
-  o = MainGlade.new(PROG_PATH, nil, PROG_NAME)
-  
+  o = MainWindow.new(PROG_PATH, nil, PROG_NAME)
+
   win = o.builder.get_object("window1")
-  win.title = PROG_NAME
   win.show_all
-  
+
   Gtk.main
 end
